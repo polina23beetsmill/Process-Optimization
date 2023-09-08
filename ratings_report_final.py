@@ -36,11 +36,11 @@ for code in codes:
     result = dict(zip(keys, values))
     percent_values = [result[f"{i} star"] for i in range(5, 0, -1)]
 
-    # Извлечение среднего рейтинга
+
     avg = str(soup.find('span', {"data-hook": 'rating-out-of-text'}))
     avg_rating = float(avg[avg.index('">') + 2:avg.index(' out of 5')])
 
-    # Списки для хранения количества отзывов и количества отзывов с комментариями
+
     total_reviews = []
     reviews_with_comments = []
 
@@ -53,11 +53,11 @@ for code in codes:
         total_reviews.append(data[0].split()[0].replace(',', ''))
         reviews_with_comments.append(data[1].split()[0].replace(',', ''))
     
-    # Объединение данных и вывод
+
     output = [code, str(avg_rating)] + percent_values + [""] + total_reviews + [""] + reviews_with_comments
     df.loc[len(df)] = output
 
-# Сохранение DataFrame в файл Excel
+
 df.to_excel("output.xlsx", index=False)
 
 browser.quit()
